@@ -7,6 +7,8 @@ import {
   selectError
 } from './postlisterSlice';
 
+import logo from './logo.svg';
+
 class Post extends React.Component {
 
   constructor(props) {
@@ -92,7 +94,7 @@ export function PostLister() {
       <div>
         {header}
         <div className="fb fb__1_3-main" id="app" >
-          <p>Aca va el spinner</p>
+          <img src={logo} className="App-spinner" alt="spinner" />
         </div>
       </div>
     );
