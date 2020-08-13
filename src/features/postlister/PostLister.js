@@ -6,44 +6,9 @@ import {
   selectPending,
   selectError
 } from './postlisterSlice';
+import { Post } from '../Post'
 
 import logo from './logo.svg';
-
-class Post extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      showContent: false
-      };
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
-    this.setState({showContent: !this.state.showContent });
-  }
-
-  render() {
-    if (this.state.showContent){
-      return (
-        <div className="post" key={this.props.post.id} onClick={this.handleClick}>
-          {this.props.post.title}
-          <div className="post__content">
-            {this.props.post.body}
-          </div>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className="post" key={this.props.post.id} onClick={this.handleClick}>
-          {this.props.post.title}
-        </div>
-      );
-    }
-  }
-}
 
 export function PostLister() {
   const getPosts = useSelector(selectPosts);
@@ -52,7 +17,8 @@ export function PostLister() {
   const dispatch = useDispatch();
   const [apiUrl, setApiUrl] = useState('');
 
-  let header = (
+  return (
+    <div>
       <header className="fb__1_2-header">
         <div className="fb fb__2_5-title header-content">
           <h1 id="header-title">Post Lister </h1>
@@ -66,7 +32,6 @@ export function PostLister() {
             value={apiUrl}
             onChange={e => setApiUrl(e.target.value)}
           />
-
           <button
             id="input-button"
             onClick={() => dispatch(fetchPostsAsync((apiUrl) || "https://jsonplaceholder.typicode.com/posts"))}
@@ -75,49 +40,20 @@ export function PostLister() {
           </button>
         </div>
       </header>
-  );
-
-  if (getError) {
-    return (
-      <div>
-        {header}
-        <div className="fb fb__1_3-main" id="app" >
-          <p>An error was found trying to fetch the posts from the submited url.<br/>
-          Details: {getError}</p>
-        </div>
-      </div>
-    )
-  }
-
-  else if (getPending) {
-    return (
-      <div>
-        {header}
-        <div className="fb fb__1_3-main" id="app" >
-          <img src={logo} className="App-spinner" alt="spinner" />
-        </div>
-      </div>
-    );
-  }
-
-  else if (getPosts === []) {
-    return (
-      <div>
-        {header}
-      </div>
-    );
-  }
-
-  else {
-    return (
-      <div>
-        {header}
-        <div className="fb fb__1_3-main" id="app" >
-          {getPosts.map(newPost => (
+      <div className="fb fb__1_3-main" id="app" >
+      {getPending &&
+        <img src={logo} className="App-spinner" alt="spinner" />
+      }
+      {getError &&
+        <p>An error was found trying to fetch the posts from the submited url.<br/>
+        Details: {getError}</p>
+      }
+      {getPosts !== [] &&
+        getPosts.map(newPost => (
             <Post post = {newPost}/>
-          ))}
-        </div>
+          ))
+      }
       </div>
-    );
-  }
+    </div>
+  );
 }
