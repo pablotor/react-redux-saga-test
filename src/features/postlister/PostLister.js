@@ -18,7 +18,7 @@ export function PostLister() {
   const [apiUrl, setApiUrl] = useState('');
 
   return (
-    <div>
+    <div className="App" >
       <header className="fb__1_2-header" >
         <div className="fb fb__2_5-title header-content" >
           <h1 id="header-title" >Post Lister</h1>

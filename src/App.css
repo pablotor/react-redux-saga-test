@@ -26,16 +26,37 @@ h1 {
   color: white;
 }
 
-#form {
-  padding-bottom: 1em;
-}
-
 #form-bar {
-  width: 40em;
+  width: 80%;
 }
 
 #input-button {
   margin-left: 2em;
+}
+
+#root,
+.App {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 1100px;
+}
+
+@media (max-width: 1100px){
+  #form-bar {
+    width: 90%;
+    margin-right: 20px;
+  }
+
+  #input-button {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  #root,
+  .App {
+    width: 100%;
+  }
 }
 
 .post {
@@ -59,30 +80,35 @@ h1 {
   display: flex;
   justify-content: flex-end;
   flex-direction: column;
+  width: 80%;
+  max-width: 1200px;
   min-width: 50em;
   background-color: #4B89DC;
   padding-bottom: 20px;
+}
 
+.fb__1_3-main {
+  flex-grow: 1;
+  width: 75%;
+  max-width: 1050px;
+  padding: 0 20px 0;
+}
+
+@media (max-width: 1100px){
+  .fb__1_2-header {
+    width: 100%;
+    min-width: 100%;
+  }
+
+  .fb__1_3-main {
+    width: 90%;
+  }
 }
 
 .fb__2_5-title {
   flex-grow: 1;
 }
 
-.fb__1_3-main {
-  flex-grow: 1;
-  padding: 0 20px 0;
-}
-
-.fb__1_2-header {
-  width: 80%;
-  max-width: 1200px;
-}
-
-.fb__1_3-main {
-  width: 70%;
-  max-width: 1050px;
-}
 
 .App-spinner {
   position: absolute;
