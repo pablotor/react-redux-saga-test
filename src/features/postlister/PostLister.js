@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  fetchPosts,
   selectPosts,
   selectPending,
   selectError
 } from './postlisterSlice';
-//import { fetchPosts } from '../sagas';
 import { Post } from '../Post';
 
 import logo from './logo.svg';
@@ -18,7 +18,7 @@ export function PostLister() {
   const [apiUrl, setApiUrl] = useState('');
 
   return (
-    <div className="App" >
+    <div id="PostLister" >
       <header className="fb__1_2-header" >
         <div className="fb fb__2_5-title header-content" >
           <h1 id="header-title" >Post Lister</h1>
@@ -34,7 +34,7 @@ export function PostLister() {
           />
           <button
             id="input-button"
-            onClick={() => dispatch({type: 'fetchPosts', payload: ((apiUrl) || "https://jsonplaceholder.typicode.com/posts")})}
+            onClick={() => dispatch(fetchPosts((apiUrl) || "https://jsonplaceholder.typicode.com/posts"))}
           >
             Fetch
           </button>
@@ -51,7 +51,7 @@ export function PostLister() {
         }
         {getPosts !== [] &&
             getPosts.map(newPost => (
-              <Post post = {newPost}/>
+              <Post post = {newPost} key={newPost.id.toString()}/>
             ))
         }
       </div>

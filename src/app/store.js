@@ -1,22 +1,24 @@
-import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+// uncomment to use logger middleware
+//import logger from 'redux-logger';
 
 import postlisterReducer from '../features/postlister/postlisterSlice';
-import watchFetchPostsAsync from '../features/sagas'
+import watchFetchPosts from '../features/sagas'
 
 // create the saga middleware
 const sagaMiddleware = createSagaMiddleware();
 
-// linea para que sagaMiddleware funcione con el configureStore
-// sacado de aca https://github.com/reduxjs/redux-toolkit/issues/282
-const middleware = [...getDefaultMiddleware({ thunk: false }), sagaMiddleware];
+// setup the middlewares array for configureStore
+const middlewares = [sagaMiddleware];
+//const middlewares = [sagaMiddleware, logger]; //test only!!!!
 
 export default configureStore({
   reducer: {
     postlister: postlisterReducer,
   },
-  middleware
+  middleware: middlewares
 });
 
 // then run the saga
-sagaMiddleware.run(watchFetchPostsAsync);
+sagaMiddleware.run(watchFetchPosts);

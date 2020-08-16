@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects'
 import {
-  fetchPostsPending,
+  fetchPosts,
   fetchPostsError,
   fetchPostsSuccess
 } from './postlister/postlisterSlice';
@@ -8,8 +8,6 @@ import {
 // Our worker Saga: will perform the async fetching task
 
 function* fetchPostsAsync(action) {
-  yield put (fetchPostsPending());
-
   try {
     const data = yield call (fetch, action.payload);
     const parsedData = yield data.json();
@@ -21,7 +19,7 @@ function* fetchPostsAsync(action) {
 };
 
 
-// Our watcher Saga: spawn a new fetchPostsAsync task on each INCREMENT_ASYNC
-export default function* watchFetchPostsAsync() {
-  yield takeEvery('fetchPosts', fetchPostsAsync)
+// Our watcher Saga: spawn a new fetchPostsAsync task on each postlister/fetchPosts
+export default function* watchFetchPosts() {
+  yield takeEvery(fetchPosts().type, fetchPostsAsync)
 }
